@@ -63,7 +63,8 @@ def markdown_to_html(markdown_file, output_file=None):
 </body>
 </html>
 """
-
+    # add colorful code coloring for code blocks embedded in triple backticks
+    html_doc = html_doc.replace('```', '<pre><code>```')
     # Write the HTML file
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
