@@ -30,7 +30,7 @@ def markdown_to_html(markdown_file, output_file=None):
 
     # Convert markdown to HTML
     html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite'])
-
+    html_content = markdown.markdown(html_content, extensions=['extra', 'codehilite', 'toc', 'fenced_code', 'attr_list'])
     # Create a complete HTML document
     html_doc = f"""<!DOCTYPE html>
 <html>
@@ -64,7 +64,6 @@ def markdown_to_html(markdown_file, output_file=None):
 </html>
 """
     # add colorful code coloring for code blocks embedded in triple backticks
-    html_doc = html_doc.replace('```', '<pre><code>```')
     # Write the HTML file
     try:
         with open(output_file, 'w', encoding='utf-8') as f:

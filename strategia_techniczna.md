@@ -152,6 +152,7 @@ końcowego, symulując interakcje z przeglądarką internetową.
     * Izolacja testów (czyszczenie stanu między testami)
 4. **Przykładowa implementacja testu UI**:
 
+
 ```java
 @Test
 public void userShouldBeAbleToLogin() {
@@ -164,6 +165,7 @@ public void userShouldBeAbleToLogin() {
         .shouldBe(visible)
         .shouldHave(text("Welcome, User"));
 }
+
 ```
 
 Przyjmuje się testowanie UI w celu weryfikacji funkcjonalności aplikacji z perspektywy użytkownika końcowego.
@@ -197,6 +199,7 @@ na poprawności, spójności i niezawodności komunikacji między komponentami s
     * Weryfikacja czasu odpowiedzi
 4. **Przykładowa implementacja testu API**:
 
+
 ```java
 @Test
 public void shouldCreateNewUser() {
@@ -216,6 +219,7 @@ public void shouldCreateNewUser() {
     assertThat(createdUser.getId()).isNotNull();
     assertThat(createdUser.getEmail()).isEqualTo("john.kowalski@example.com");
 }
+
 ```
 
 ## 2.3. Shift-Left Testing
@@ -339,6 +343,7 @@ interakcji użytkownika z aplikacją.
 
 ### Przykładowa implementacja testu z wykorzystaniem Selenium WebDriver:
 
+
 ```java
 public void testLoginFunctionality() {
     WebDriver driver = new ChromeDriver();
@@ -366,6 +371,7 @@ public void testLoginFunctionality() {
         driver.quit();
     }
 }
+
 ```
 
 ### Wyzwania i ograniczenia:
@@ -409,6 +415,7 @@ Dzięki jego deklaratywnemu API, testy stają się bardziej zwięzłe, czytelne 
 
 java
 
+
 ```java
 @Test
 public void userCanLoginToSystem() {
@@ -424,6 +431,7 @@ public void userCanLoginToSystem() {
     $("#dashboard").should(appear);
     $("#welcome-message").shouldHave(text("Welcome, TestUser"));
 }
+
 ```
 
 ### Porównanie z czystym Selenium WebDriver:
@@ -464,6 +472,7 @@ Language) pozwalający na pisanie czytelnych, zwięzłych testów dla interfejs�
 
 ### Przykładowa implementacja testu z wykorzystaniem Rest Assured:
 
+
 ```java
 @Test
 public void canRetrieveUserById() {
@@ -485,11 +494,13 @@ public void canRetrieveUserById() {
         .body("roles", hasItems("USER", "ADMIN"))
         .time(lessThan(1000L)); // Czas odpowiedzi poniżej 1 sekundy
 }
+
 ```
 
 ### Zaawansowane scenariusze z Rest Assured:
 
 1. **Testowanie sekwencji API**:
+
 
 ```java
 // Krok 1: Utworzenie użytkownika
@@ -518,9 +529,11 @@ given()
     .delete("/api/users/{id}")
 .then()
     .statusCode(204);
+
 ```
 
 2. **Walidacja schematu JSON**:
+
 
 ```java
 given()
@@ -528,6 +541,7 @@ given()
 .then()
     .assertThat()
     .body(matchesJsonSchemaInClasspath("schemas/products-schema.json"));
+
 ```
 
 ## 3.4. Biblioteki wspierające
@@ -660,6 +674,7 @@ Zaawansowane przetwarzanie odpowiedzi JSON/XML
 
 ### Integracja bibliotek w frameworku testowym:
 
+
 ```java
 @Slf4j // Lombok dla logowania
 public class UserApiTest {
@@ -705,6 +720,7 @@ public class UserApiTest {
     
     // Metody pomocnicze...
 }
+
 ```
 
 Ta kombinacja narzędzi i bibliotek zapewnia kompleksowe rozwiązanie do testowania aplikacji webowych na wszystkich
@@ -857,6 +873,7 @@ płatności"
 
 1. **Dekompozycja scenariusza**:
 
+
 ```
 1. Logowanie do aplikacji
    a. Otwarcie strony logowania
@@ -872,9 +889,11 @@ płatności"
    b. Weryfikacja dodanego produktu
    c. Przejście do płątności
    d. Weryfikacja strony checkout
+
 ```
 
 3. **Identyfikacja elementów UI i lokalizatorów**:
+
 ```
 Strona logowania:
 - Pole username: #username
@@ -894,9 +913,11 @@ Koszyk i checkout:
 - Pozycje w koszyku: .cart-items .item
 - Przycisk checkout: #checkout-button
 - Nagłówek strony checkout: .checkout-page h1
+
 ```
 
 4. **Procedury walidacji**:
+
 ```
 Walidacja logowania:
 - Dashboard jest widoczny
@@ -914,14 +935,17 @@ Walidacja checkout:
 - Strona checkout jest załadowana
 - Produkt jest widoczny na liście zamówienia
 - Cena jest zgodna z oczekiwaną
+
 ```
 
 4. **Identyfikacja potencjalnych wyzwań**:
+
 ```
 - Dynamiczne generowanie ID produktów - konieczne użycie relatywnych lokalizatorów
 - Asynchroniczne ładowanie wyników wyszukiwania - potrzebne mechanizmy oczekiwania
 - Animacja powiadomienia o dodaniu do koszyka - synchronizacja czasowa
 - Sesja użytkownika - może wymagać ponownego logowania przy dłuższych testach
+
 ```
 
 ### Projektowanie modelu Page Object:
@@ -944,6 +968,7 @@ reprezentacji interfejsu użytkownika.
 
 
 3. **Przykładowa struktura klas Page Object**:
+
 
 ```java
 // Bazowa klasa dla wszystkich stron
@@ -991,6 +1016,7 @@ public class LoginPage extends BasePage {
         return $(".error-message").isDisplayed();
     }
 }
+
 ```
 
 ## 4.3. Projektowanie testów API
@@ -1037,6 +1063,7 @@ niezawodną weryfikację logiki biznesowej.
 Scenariusz biznesowy: "Weryfikacja pełnego cyklu życia użytkownika (tworzenie, odczyt, aktualizacja, usuwanie)"
 
 1. **Dekompozycja scenariusza**:
+
 ```
 1. Tworzenie użytkownika (POST /api/users)
    a. Pozytywne: utworzenie z poprawnymi danymi
@@ -1057,9 +1084,11 @@ Scenariusz biznesowy: "Weryfikacja pełnego cyklu życia użytkownika (tworzenie
    a. Pozytywne: usunięcie istniejącego użytkownika
    b. Negatywne: próba usunięcia nieistniejącego użytkownika
    c. Weryfikacja, że usunięty użytkownik jest niedostępny
+
 ```
 
 2. **Identyfikacja danych testowych**:
+
 ```
 Dane użytkownika:
 - Poprawny użytkownik: {
@@ -1085,9 +1114,11 @@ Dane użytkownika:
     "lastName": "Updated",
     "email": "jan.updated@example.com"
 }
+
 ```
 
 3**Procedury walidacji**:
+
 ```
 1. Walidacja tworzenia:
 - Status 201 Created
@@ -1106,8 +1137,10 @@ Dane użytkownika:
 4. Walidacja usunięcia:
 - Status 204 No Content
 - Próba odczytu usuniętego użytkownika zwraca 404
+
 ```
 4. **Potencjalne wyzwania**:
+
 
 ```
 - Zależności danych źródłowych
@@ -1115,6 +1148,7 @@ Dane użytkownika:
 - Kolejność wykonania testów (zależności pomiędzy procesami)
 - Idempotentność testów (możliwość wielokrotnego uruchomienia)
 - Zarządzanie danymi testowymi (czyszczenie)
+
 ```
 
 ### Projektowanie abstrakcji dla testów API:
@@ -1135,6 +1169,7 @@ utrzymywalnymi.
    * Obsługa rutynowych walidacji
 
 4. **Przykładowa implementacja abstrakcji**:
+
 
 ```java
 // Model danych
@@ -1208,6 +1243,7 @@ public class UserApiClient {
                 .statusCode(204);
     }
 }
+
 ```
 
 ## 4.4. Implementacja testów
@@ -1238,6 +1274,7 @@ utrzymaniu.
    * Wykorzystanie wcześniej zaprojektowanych abstrakcji (Page Objects, klasy klienckie API)
 
 ### Implementacja testów UI z Selenide:
+
 
 ```java
 @DisplayName("Login functionality tests")
@@ -1298,9 +1335,11 @@ public class LoginTests extends BaseTest {
         resetPage.getEmailField().shouldBe(visible);
     }
 }
+
 ```
 
 ### Implementacja testów API z Rest Assured:
+
 
 
 ```java
@@ -1416,11 +1455,13 @@ public class UserApiTests extends BaseApiTest {
         assertThat(updatedUser.getRoles()).contains("ADMIN");
     }
 }
+
 ```
 
 ### Zaawansowane techniki implementacji:
 
 1. **Parametryzacja testów**:
+
 ```java
 @ParameterizedTest
 @CsvSource({
@@ -1439,9 +1480,11 @@ public void loginShouldWorkOnDifferentBrowsers(String browser, String resolution
     // Asercje
     homePage.getUserInfoPanel().shouldBe(visible);
 }
+
 ```
 
 2. **Obsługa danych zależnych od środowiska**:
+
 
 ```java
 @Test
@@ -1462,9 +1505,11 @@ public void canCreateUserInDifferentEnvironments() {
         assertThat(createdUser.getVerificationStatus()).isEqualTo("AUTO_VERIFIED");
     }
 }
+
 ```
 
 3. **Obsługa asynchroniczności**:
+
 
 ```java
 @Test
@@ -1486,9 +1531,11 @@ public void orderShouldBeProcessedAsynchronously() {
     assertThat(processedOrder.getStatus()).isEqualTo("PROCESSED");
     assertThat(processedOrder.getProcessingTime()).isGreaterThan(0);
 }
+
 ```
 
 4. **Obsługa testów wymagających specjalnych uprawnień**:
+
 
 ```java
 @Test
@@ -1502,6 +1549,7 @@ public void adminCanAccessRestrictedContent() {
     adminPage.getUserManagementPanel().shouldBe(visible);
     adminPage.getSystemConfigurationPanel().shouldBe(visible);
 }
+
 ```
 
 ## 4.5. Weryfikacja i utrzymanie testów
@@ -1576,6 +1624,7 @@ znaczącą część całkowitego nakładu pracy.
 2. **Techniki stabilizacji testów UI**:
 
 * Implementacja inteligentnych mechanizmów oczekiwania
+
 ```java
 // Zamiast:
 Thread.sleep(2000);
@@ -1583,9 +1632,11 @@ Thread.sleep(2000);
 // użyj::
 $("#loadingIndicator").shouldBe(disappear, Duration.ofSeconds(10));
 $("#content").shouldBe(visible);
+
 ```
 
 * Stosowanie bardziej niezawodnych lokalizatorów
+
 
 ```java
 // Zamiast:
@@ -1593,9 +1644,11 @@ $("div.user-list div:nth-child(3)");
 
 // Lepsze rozwiązanie:
 $("div.user-list").find(byText("John Kowalski"));
+
 ```
 
 * Implementacja mechanizmów retry
+
 
 ```java
 @Test
@@ -1603,9 +1656,11 @@ $("div.user-list").find(byText("John Kowalski"));
 public void flakySynchronizationTest() {
     // Test code
 }
+
 ```
 
 * Izolacja stanu testowego
+
 
 ```java
 @BeforeEach
@@ -1614,11 +1669,13 @@ public void ensureCleanState() {
     clearBrowserState();
     loginWithFreshUser();
 }
+
 ```
 
 3. **Techniki stabilizacji testów API**:
 
 * Implementacja mechanizmów idempotentności
+
 
 ```java
 @BeforeEach
@@ -1628,9 +1685,11 @@ public void ensureTestEntityExists() {
         createEntity(TEST_ENTITY_ID);
     }
 }
+
 ```
   
 * Obsługa Race Condition
+
 ```java
 // Zamiast oczekiwać natychmiastowych wyników
 OrderDTO order = orderApiClient.createOrder(newOrder);
@@ -1642,9 +1701,11 @@ await().atMost(10, SECONDS).until(() -> {
     OrderDTO current = orderApiClient.getOrderById(createdOrder.getId());
     return "PROCESSED".equals(current.getStatus());
 });
+
 ```
 
 * Izolacja od zależności zewnętrznych
+
 ```java
 // Użycie mocków dla niepewnych zewnętrznych zależności
 @Test
@@ -1658,11 +1719,13 @@ public void testWithMockedExternalDependency() {
     // Test używający zamockowanego API
     assertThat(ourService.processWithExternalDependency()).isSuccessful();
 }
+
 ```
 
 4. **Zarządzanie nienaprawialnymi testami**:
 
 * Kwarantanna dla niestabilnych testów
+
 ```java
 @Tag("flaky") // Oznaczenie testu jako niestabilnego
 @Test
@@ -1671,9 +1734,11 @@ public void knownFlakyTest() {
 }
 // W konfiguracji uruchomienia:
 // mvn test -Dgroups=!flaky // Wykluczenie niestabilnych testów z głównego przebiegu
+
 ```
 
 * Dokumentacja znanych problemów
+
 ```java
 /**
  * This test may fail intermittently due to network latency issues with the third-party API.
@@ -1685,15 +1750,18 @@ public void knownFlakyTest() {
 public void testWithKnownNetworkIssues() {
     // Test code
 }
+
 ```
 
 * Priorytetyzacja napraw
+
 ```
 Kategorie priorytetów napraw:
 P0: Krytyczne testy mające wpływ na główne funkcjonalności - naprawić natychmiast
 P1: Ważne testy biznesowe - naprawić w bieżącym sprincie
 P2: Testy pomocnicze - naprawić w ciągu 2 sprintów
 P3: Testy niekrytyczne - rozważyć refaktoryzację lub usunięcie
+
 ```
 
 ### Dokumentacja i dzielenie się wiedzą:
@@ -1765,6 +1833,7 @@ frameworka testowego, zapewniający utrzymywalność, czytelność i skalowalno�
 
 #### Struktura hierarchiczna Page Objects:
 
+
 ```
 src/test/java/com/company/pageobjects/
 ├── base/
@@ -1781,9 +1850,11 @@ src/test/java/com/company/pageobjects/
     ├── SearchBar.java            // Komponent wyszukiwarki
     ├── UserInfoPanel.java        // Panel informacji o użytkowniku
     └── ProductTile.java          // Pojedynczy kafelek produktu
+
 ```
 
 #### Przykładowa implementacja klasy bazowej:
+
 
 ```java
 /**
@@ -1838,9 +1909,11 @@ public abstract class BasePage {
     
     // Wspólne metody nawigacyjne i pomocnicze...
 }
+
 ```
 
 #### Przykładowa implementacja konkretnej strony:
+
 
 ```java
 /**
@@ -1932,9 +2005,11 @@ public class LoginPage extends BasePage {
         return errorMessage;
     }
 }
+
 ```
 
 #### Przykładowa implementacja komponentu wielokrotnego użytku:
+
 
 ```java
 /**
@@ -2014,9 +2089,11 @@ public class NavigationMenu extends BaseComponent {
         return rootElement.isDisplayed();
     }
 }
+
 ```
 
 #### Organizacja testów korzystających z POM:
+
 
 ```java
 @DisplayName("Testy funkcjonalności koszyka zakupowego")
@@ -2081,6 +2158,7 @@ public class ShoppingCartTests extends BaseTest {
                 .shouldHave(text("Your cart is empty"));
     }
 }
+
 ```
 
 ### Korzyści z zastosowania Page Object Model:
@@ -2132,6 +2210,7 @@ tworzenie nowych testów, ułatwia utrzymanie istniejących oraz zapewnia przejr
 
 ### Przykładowa struktura katalogów dla testów API:
 
+
 ```
 src/test/java/com/company/api/
 ├── config/
@@ -2171,11 +2250,13 @@ src/test/java/com/company/api/
     ├── JsonSchemaValidator.java     // Narzędzia do walidacji schematów
     ├── ApiTestDataGenerator.java    // Generator danych testowych
     └── ResponseExtractor.java       // Narzędzia do ekstrakcji danych z odpowiedzi
+
 ```
 
 ### Implementacja poszczególnych komponentów:
 
 #### Klasa konfiguracyjna API:
+
 
 ```java
 /**
@@ -2229,9 +2310,11 @@ public class ApiConfig {
         return Boolean.parseBoolean(System.getProperty("api.debug", "false"));
     }
 }
+
 ```
 
 #### Przykładowy model danych (DTO):
+
 
 ```java
 /**
@@ -2288,9 +2371,11 @@ public class UserResponse {
     private Date createdAt;
     private Date updatedAt;
 }
+
 ```
 
 #### Bazowy klient API:
+
 
 ```java
 /**
@@ -2355,9 +2440,11 @@ public abstract class BaseApiClient {
         return response.as(clazz);
     }
 }
+
 ```
 
 #### Konkretna implementacja klienta API:
+
 
 ```java
 /**
@@ -2473,9 +2560,11 @@ public class UserApiClient extends BaseApiClient {
         return authResponse.getToken();
     }
 }
+
 ```
 
 #### Przykład specyfikacji wspólnych:
+
 
 ```java
 /**
@@ -2576,7 +2665,9 @@ public class CommonResponseSpecs {
     
     /**
      * Specyfikacja dla odpow
+
 ```
+
 
 ```java
     /**
@@ -2613,9 +2704,11 @@ public class CommonResponseSpecs {
             .build();
     }
 }
+
 ```
 
 #### Przykładowa implementacja testu API:
+
 
 ```java
 /**
@@ -2778,6 +2871,7 @@ public class UserManagementTests extends BaseApiTest {
             .allMatch(lastName -> lastName.equals(uniqueLastName));
     }
 }
+
 ```
 
 ### Korzyści struktury testów API:
@@ -2838,6 +2932,7 @@ logiki testów od danych wejściowych i oczekiwanych wyników.
 ### Implementacja separacji danych dla testów UI:
 
 #### Podejście z wykorzystaniem plików zewnętrznych:
+
 
 ```java
 /**
@@ -2907,9 +3002,11 @@ public class TestDataLoader {
         }
     }
 }
+
 ```
 
 #### Organizacja danych testowych w plikach:
+
 
 ```
 src/test/resources/test-data/
@@ -2933,9 +3030,11 @@ src/test/resources/test-data/
     └── order/
         ├── order-requests.json
         └── order-responses.json
+
 ```
 
 #### Przykładowy plik JSON z danymi testowymi:
+
 
 ```json
 // valid-users.json
@@ -2964,9 +3063,11 @@ src/test/resources/test-data/
     "errorMessage": "This user has been locked out."
   }
 ]
+
 ```
 
 #### Wykorzystanie zewnętrznych danych w testach UI:
+
 
 ```java
 /**
@@ -3103,11 +3204,13 @@ public class LoginTests extends BaseTest {
         }
     }
 }
+
 ```
 
 ### Implementacja separacji danych dla testów API:
 
 #### Fabryki danych testowych:
+
 
 ```java
 /**
@@ -3199,9 +3302,11 @@ public class ApiTestDataFactory {
         return template;
     }
 }
+
 ```
 
 #### Parametryzacja testów API:
+
 
 ```java
 /**
@@ -3330,6 +3435,7 @@ public class ProductApiTests extends BaseApiTest {
         productApiClient.deleteProduct(updatedProduct.getId());
     }
 }
+
 ```
 
 ### Korzyści separacji kodu od danych:
@@ -3408,6 +3514,7 @@ architektury, który bezpośrednio wpływa na długoterminową wartość inwesty
 
 #### 1. Wielowarstwowa architektura
 
+
 ```
 Framework Testowy
 ├── Core Layer (Core)
@@ -3422,6 +3529,7 @@ Framework Testowy
     ├── Testy UI
     ├── Testy API
     └── Testy integracyjne
+
 ```
 
 Ta struktura zapewnia, że:
@@ -3432,6 +3540,7 @@ Ta struktura zapewnia, że:
 #### 2. Implementacja wzorców projektowych
 
 **Wzorzec Factory (Fabryka)**:
+
 
 ```java
 /**
@@ -3518,7 +3627,9 @@ public class UserFactory {
     }
 }
 
+
 ```
+
 ```java
 /**
  * Przykładowy test sprawdzający uprawnienia różnych typów użytkowników.
@@ -3554,9 +3665,11 @@ public void testUserPermissionsForDifferentRoles() {
         // Wykonanie testów z użyciem wygenerowanego użytkownika...
     }
 }
+
 ```
 
 **Wzorzec Builder (Budowniczy)**:
+
 
 ```java
 /**
@@ -3618,9 +3731,11 @@ OrderRequest testOrder = new OrderBuilder()
     .withItem("PROD-456", 1, BigDecimal.valueOf(49.99))
     .withPaymentMethod("CREDIT_CARD")
     .build();
+
 ```
 
 **Wzorzec Strategy (Strategia)**:
+
 
 ```java
 /**
@@ -3750,7 +3865,9 @@ public class TaxAuditorFlowStrategy implements BusinessFlowStrategy {
         return "kontroler";
     }
 }
+
 ```
+
 
 ```java
 /**
@@ -3911,10 +4028,12 @@ public void testEndToEndTaxProcess() {
         .contains("invoice_2.pdf")
         .doesNotContain("virus.exe");
 }
+
 ```
 
 
 #### 3. Dokumentacja kodu i komponentów
+
 
 ```java
 /**
@@ -3980,6 +4099,7 @@ public class LoginPage {
         return this;
     }
 }
+
 ```
 
 ### Długoterminowe korzyści z projektowania pod kątem utrzymywalności:
@@ -4036,6 +4156,7 @@ jak Maven czy Gradle. Skrypty te powinny umożliwiać:
 
 Przykład konfiguracji Maven do uruchamiania różnych zestawów testów:
 
+
 ```xml
 
 <profiles>
@@ -4056,9 +4177,11 @@ Przykład konfiguracji Maven do uruchamiania różnych zestawów testów:
         </properties>
     </profile>
 </profiles>
+
 ```
 
 Przykład konfiguracji Gradle do uruchamiania różnych zestawów testów:
+
 ```gradle
 task apiTests(type: Test) {
     useJUnitPlatform {
@@ -4093,6 +4216,7 @@ task uiTests(type: Test) {
         exceptionFormat "full"
     }
 }
+
 
 ```
 
@@ -4144,12 +4268,14 @@ implementacji:
     - Powtarzanie całych metod testowych z progresywnymi opóźnieniami (exponential backoff)
     - Inteligentne mechanizmy powtórzeń dla specyficznych rodzajów błędów
 
+
 ```java
 @Test
 @RetryingTest(maxRetries = 3)
 public void testPaymentProcessing() {
     // Test logic that might be flaky due to external dependencies
 }
+
 ```
 
 - **Zarządzanie timeoutami**:
@@ -4255,6 +4381,7 @@ Celem tej strategii jest zapewnienie natychmiastowej informacji zwrotnej dewelop
     - Możliwość przerwania wykonania po pierwszym błędzie
 - **Cel czasowy**: < 10 minut dla pełnego cyklu
 
+
 ```yaml
 # Przykład konfiguracji GitLab CI dla fast feedback
 fast_feedback:
@@ -4266,6 +4393,7 @@ fast_feedback:
   artifacts:
     reports:
       junit: target/surefire-reports/TEST-*.xml
+
 ```
 
 #### Strategia Smoke Testing
@@ -4332,12 +4460,14 @@ Efektywna strategia równoległego wykonania testów jest kluczem do optymalizac
     - Grupowanie testów współdzielących dane wejściowe
     - Izolacja testów z potencjalnymi konfliktami zasobów
 
+
 ```java
 // Przykład konfiguracji równoległości w TestNG
 @Test(threadPoolSize = 3, invocationCount = 10, timeOut = 10000)
 public void testPaymentProcessingConcurrently() {
     // Test logic that can be executed in parallel
 }
+
 ```
 
 - **Infrastruktura dla testów równoległych**:
@@ -4451,6 +4581,7 @@ Wybór odpowiednich narzędzi raportowania jest kluczowy dla efektywnej komunika
     - Interaktywne dashboardy z filtrowaniem
     - Integracja z popularnymi frameworkami testowymi (JUnit, TestNG)
 
+
 ```java
 @Test
 @DisplayName("Weryfikacja procesu płatności kartą")
@@ -4473,6 +4604,7 @@ public void testPaymentProcessing() {
     Allure.addAttachment("Ekran potwierdzenia", new ByteArrayInputStream(
         ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 }
+
 ```
 
 - **Extent Reports** - elastyczna biblioteka do tworzenia raportów HTML:
@@ -4511,6 +4643,7 @@ Proces raportowania powinien być w pełni zautomatyzowany jako część pipelin
     - Konsolidacja raportów z różnych typów testów (jednostkowe, integracyjne, UI)
     - Archiwizacja artefaktów (logi, zrzuty ekranu) jako załączników do raportów
 
+
 ```groovy
 # Przykład konfiguracji Jenkins Pipeline dla generowania raportów
 stage('Generate Reports') {
@@ -4536,6 +4669,7 @@ stage('Generate Reports') {
       }
    }
 }
+
 ```
 
 - **Powiadomienia i dystrybucja raportów**:
@@ -4644,6 +4778,7 @@ Najbardziej podstawowym typem bramek jakościowych są te oparte na wynikach tes
     - Trend stabilności w czasie (brak pogorszenia względem poprzednich wykonań)
     - Maksymalna liczba kolejnych nieudanych wykonań dla tego samego testu
 
+
 ```groovy
 # Przykład definicji bramki jakościowej w Jenkins
 stage('Quality Gate: Test Results') {
@@ -4668,6 +4803,7 @@ stage('Quality Gate: Test Results') {
     }
   }
 }
+
 ```
 
 #### Bramki oparte na pokryciu kodu
@@ -4688,6 +4824,7 @@ Pokrycie kodu testami jest istotnym wskaźnikiem jakości zestawu testów:
     - Wymagane 100% pokrycie dla nowo dodanego lub zmodyfikowanego kodu
     - Automatyczna identyfikacja zmian niepokrytych testami
     - Blokowanie merga zmian bez odpowiedniego pokrycia
+
 
 ```xml
 // Przykład konfiguracji JaCoCo w Maven do weryfikacji pokrycia
@@ -4738,6 +4875,7 @@ Pokrycie kodu testami jest istotnym wskaźnikiem jakości zestawu testów:
         </execution>
     </executions>
 </plugin>
+
 ```
 
 #### Bramki oparte na jakości kodu
@@ -4760,6 +4898,7 @@ Statyczna analiza kodu dostarcza cennych wskaźników dotyczących jakości i ut
     - Maksymalny przyrost długu technicznego w jednej zmianie
     - Współczynnik spłaty długu technicznego
 
+
 ```groovy
 # Przykład definicji bramki jakościowej opartej na SonarQube
 stage('Quality Gate: Code Quality') {
@@ -4778,6 +4917,7 @@ stage('Quality Gate: Code Quality') {
     }
   }
 }
+
 ```
 
 #### Bramki oparte na wydajności
@@ -4798,6 +4938,7 @@ Dla aplikacji z wymaganiami wydajnościowymi kluczowe są bramki oparte na metry
     - Maksymalne zużycie pamięci
     - Maksymalne wykorzystanie CPU
     - Maksymalna liczba zapytań do bazy danych per transakcja
+
 
 ```java
 // Przykład definicji bramki wydajnościowej w JMeter z wykorzystaniem Assert
@@ -4830,6 +4971,7 @@ Dla aplikacji z wymaganiami wydajnościowymi kluczowe są bramki oparte na metry
     }
   </stringProp>
 </jp:JSR223Assertion>
+
 ```
 
 #### Bramki oparte na bezpieczeństwie
@@ -4850,6 +4992,7 @@ W dobie rosnących zagrożeń cyberbezpieczeństwa, bramki bezpieczeństwa staj�
     - Spełnienie wymagań OWASP Top 10
     - Zgodność z regulacjami branżowymi (PCI DSS, HIPAA itp.)
     - Brak wrażliwych danych w kodzie (hasła, klucze API)
+
 
 ```yaml
 # Przykład definicji bramki bezpieczeństwa w GitLab CI
@@ -4873,6 +5016,7 @@ security_gate:
   artifacts:
     paths:
       - security-report.json
+
 ```
 
 ### Implementacja bramek jakościowych w pipeline
@@ -4916,6 +5060,7 @@ Nawet najlepiej zaprojektowane bramki jakościowe mogą wymagać wyjątków w ok
     - Definiowanie ścieżek eskalacyjnych dla różnych typów bramek
     - Mechanizmy priorytetyzacji problemów
 
+
 ```java
 // Przykład implementacji mechanizmu wyjątków w Jenkins Pipeline
 stage('Quality Gate: Test Results') {
@@ -4943,6 +5088,7 @@ stage('Quality Gate: Test Results') {
     }
   }
 }
+
 ```
 
 ### Ewolucja bramek jakościowych
@@ -5064,22 +5210,26 @@ Najpopularniejsze z nich to:
 
 1. **Java Faker** - biblioteka umożliwiająca generowanie realistycznych, losowych danych dla różnych kategorii (dane
    osobowe, adresy, numery telefonów). Szczególnie przydatna w testach formularzy z wykorzystaniem Selenium/Selenide.
-   ```java
+   
+```java
    Faker faker = new Faker(new Locale("pl"));
    String name = faker.name().fullName();
    String email = faker.internet().emailAddress();
-   ```
+   
+```
 
 2. **JUnit Params / TestNG DataProvider** - mechanizmy parametryzacji testów, które umożliwiają łatwe dostarczanie
    różnych zestawów danych do tych samych metod testowych.
-   ```java
+   
+```java
    @ParameterizedTest
    @CsvSource({"jan.kowalski@example.com, JanKowalski123", "anna.nowak@example.com, Anna!2023"})
    void testLogin(String username, String password) {
        loginPage.login(username, password);
        assertThat(homePage.isDisplayed()).isTrue();
    }
-   ```
+   
+```
 
 3. **Apache Commons Lang** - zawiera narzędzia do generowania losowych ciągów znaków, liczb i innych podstawowych typów
    danych.
@@ -5093,15 +5243,18 @@ Najpopularniejsze z nich to:
 1. **Generowanie przypadków brzegowych** - automatyczne tworzenie wartości na granicach dozwolonych zakresów, co jest
    kluczowe dla testowania walidacji. Dla interfejsów REST testowanych przy użyciu RestAssured, oznacza to generowanie
    payloadów z wartościami na granicach dozwolonych zakresów.
-   ```java
+   
+```java
    // Testowanie walidacji długości pola
    String exactlyMaxLength = RandomStringUtils.random(255);
    String tooLongString = RandomStringUtils.random(256);
-   ```
+   
+```
 
 2. **Generowanie danych strukturalnych** - tworzenie złożonych struktur danych odpowiadających modelowi domenowemu
    aplikacji. W przypadku testów REST API z wykorzystaniem RestAssured, często generujemy całe drzewa obiektów JSON.
-   ```java
+   
+```java
    User user = User.builder()
        .firstName(faker.name().firstName())
        .lastName(faker.name().lastName())
@@ -5111,45 +5264,55 @@ Najpopularniejsze z nich to:
            .zipCode(faker.address().zipCode())
            .build())
        .build();
-   ```
+   
+```
 
 3. **Generowanie danych warunkowych** - tworzenie danych, które spełniają określone warunki biznesowe lub zależności.
-   ```java
+   
+```java
    // Generowanie wieku odpowiedniego dla emeryta
    int retirementAge = faker.number().numberBetween(65, 100);
-   ```
+   
+```
 
 4. **Generowanie danych zależnych od czasu** - tworzenie danych uwzględniających aspekty czasowe, co jest szczególnie
    istotne w systemach z logiką biznesową opartą na datach.
-   ```java
+   
+```java
    // Data urodzenia osoby pełnoletniej
    LocalDate adultBirthDate = LocalDate.now().minusYears(
        faker.number().numberBetween(18, 90));
-   ```
+   
+```
 
 **Projektowanie generatorów danych testowych** zgodnie z dobrymi praktykami wymaga:
 
 1. **Enkapsulacji logiki generowania** - tworzenie dedykowanych fabryk danych, które ukrywają szczegóły implementacyjne
    i oferują czytelny interfejs.
-   ```java
+   
+```java
    public class UserTestDataFactory {
        public static User createValidUser() { /* ... */ }
        public static User createUserWithInvalidEmail() { /* ... */ }
    }
-   ```
+   
+```
 
 2. **Separacji mechanizmu generowania od logiki testowej** - zgodnie z zasadą SRP (Single Responsibility Principle), kod
    odpowiedzialny za generowanie danych powinien być oddzielony od kodu testowego.
 
 3. **Powtarzalności** - zapewnienie, że przy tych samych parametrach wejściowych generator zawsze produkuje te same
    dane, co jest kluczowe dla debugowania testów.
-   ```java
+   
+```java
    // Używanie ziarna (seed) dla powtarzalnych wyników
    Random random = new Random(42);
-   ```
+   
+```
 
 4. **Elastyczności** - możliwość łatwego dostosowania generatorów do zmieniających się wymagań i struktur danych.
-   ```java
+   
+```java
    public User createUser(UserTemplate template) {
        User user = createBaseUser();
        if (template.hasCustomEmail()) {
@@ -5157,7 +5320,8 @@ Najpopularniejsze z nich to:
        }
        return user;
    }
-   ```
+   
+```
 
 **Integracja z zewnętrznymi źródłami danych** może znacząco zwiększyć realizm i pokrycie testów:
 
@@ -5196,7 +5360,9 @@ zastosowania odpowiednich technik i wzorców.
 **Techniki izolacji danych w testach** można podzielić na kilka głównych kategorii:
 
 1. **Izolacja na poziomie środowiska** - zapewnienie każdemu testowi lub zestawowi testów dedykowanego środowiska.
-   ```java
+   
+
+```java
    @BeforeEach
    void setupTestDatabase() {
        databaseManager.createTemporarySchema();
@@ -5207,11 +5373,13 @@ zastosowania odpowiednich technik i wzorców.
    void cleanupTestDatabase() {
        databaseManager.dropTemporarySchema();
    }
-   ```
+   
+```
 
 2. **Izolacja na poziomie transakcji** - wykorzystanie transakcji bazodanowych do izolowania zmian wprowadzanych przez
    testy.
-   ```java
+   
+```java
    @Test
    @Transactional
    void testUserCreation() {
@@ -5219,32 +5387,38 @@ zastosowania odpowiednich technik i wzorców.
        userRepository.save(new User("jan", "kowalski"));
        assertThat(userRepository.findByUsername("jan")).isPresent();
    }
-   ```
+   
+```
 
 3. **Izolacja przez unikalność danych** - zapewnienie, że każdy test operuje na unikalnych danych, które nie kolidują z
    danymi innych testów.
-   ```java
+   
+```java
    @Test
    void testUserRegistration() {
        String uniqueEmail = "user_" + UUID.randomUUID() + "@example.com";
        registrationPage.registerUser(uniqueEmail, "password123");
        assertThat(dashboardPage.isLoggedIn()).isTrue();
    }
-   ```
+   
+```
 
 4. **Izolacja przez czyszczenie danych** - systematyczne czyszczenie danych przed lub po każdym teście.
-   ```java
+   
+```java
    @AfterEach
    void cleanupCreatedUsers() {
        userRepository.deleteByEmailContaining(testIdentifier);
    }
-   ```
+   
+```
 
 **Wzorce projektowe wspierające izolację danych** obejmują:
 
 1. **Test Fixture** - przygotowanie znanego, stałego środowiska dla każdego testu, co eliminuje zależności między
    testami.
-   ```java
+   
+```java
    @BeforeEach
    void setupFixture() {
        // Przygotowanie danych dla testu
@@ -5257,24 +5431,29 @@ zastosowania odpowiednich technik i wzorców.
            .when().post("/api/users")
            .then().statusCode(201);
    }
-   ```
+   
+```
 
 2. **Object Mother** - wzorzec dostarczający metody fabrykujące obiekty testowe o określonych właściwościach.
-   ```java
+   
+```java
    public class OrderMother {
        public static Order createPendingOrder() { /* ... */ }
        public static Order createCompletedOrder() { /* ... */ }
    }
-   ```
+   
+```
 
 3. **Test Data Builder** - wzorzec umożliwiający fluent API do tworzenia obiektów testowych.
-   ```java
+   
+```java
    User user = new UserBuilder()
        .withUsername("testuser_" + System.currentTimeMillis())
        .withEmail("test_" + UUID.randomUUID() + "@example.com")
        .withActivatedAccount()
        .build();
-   ```
+   
+```
 
 **Praktyczne strategie izolacji danych w różnych warstwach testów**:
 
@@ -5287,7 +5466,8 @@ zastosowania odpowiednich technik i wzorców.
     - Tworzenie unikalnych zasobów dla każdego testu
     - Wykorzystanie dedykowanych nagłówków HTTP do identyfikacji zasobów utworzonych przez testy
     - Implementacja mechanizmu śledzenia i czyszczenia zasobów po testach
-   ```java
+   
+```java
    String resourceId = given().contentType(ContentType.JSON)
        .header("X-Test-Identifier", testRunId)
        .body(newResource)
@@ -5297,7 +5477,8 @@ zastosowania odpowiednich technik i wzorców.
    // Po teście
    given().header("X-Test-Identifier", testRunId)
        .when().delete("/api/resources/cleanup");
-   ```
+   
+```
 
 3. **Testy integracyjne z bazą danych**:
     - Wykorzystanie wbudowanych mechanizmów izolacji w bazach danych (np. schematy w PostgreSQL)
@@ -5313,13 +5494,15 @@ zastosowania odpowiednich technik i wzorców.
 
 3. **Testcontainers** - biblioteka umożliwiająca uruchamianie kontenerów Docker na potrzeby testów, co zapewnia izolację
    na poziomie infrastruktury.
-   ```java
+   
+```java
    @Container
    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:13")
        .withDatabaseName("testdb")
        .withUsername("test")
        .withPassword("test");
-   ```
+   
+```
 
 4. **Spring Test** - dla aplikacji Spring, oferuje narzędzia do izolacji testów, takie jak `@DirtiesContext` czy
    `@Transactional`.
@@ -5364,6 +5547,7 @@ użytkownika, Selenium WebDriver wraz z Selenide stanowią potężną kombinacj�
 Selenium, upraszcza pisanie i utrzymywanie testów UI poprzez elegantny API i wbudowane mechanizmy oczekiwania na
 elementy.
 
+
 ```java
 // Przykład testu UI z wykorzystaniem Selenide
 @Test
@@ -5374,10 +5558,12 @@ public void userCanLoginSuccessfully() {
     $(By.id("loginButton")).click();
     $(By.id("welcomeMessage")).shouldHave(text("Welcome, Test User!"));
 }
+
 ```
 
 Dla testów API, Rest Assured oferuje czytelny, fluent interfejs, który ułatwia weryfikację odpowiedzi i zachowań usług
 RESTful:
+
 
 ```java
 // Przykład testu API z wykorzystaniem Rest Assured
@@ -5392,6 +5578,7 @@ public void canRetrieveUserDetails() {
         .body("name", equalTo("John Kowalski"))
         .body("email", equalTo("john.Kowalski@example.com"));
 }
+
 ```
 
 ### Integracja z CI/CD
@@ -5467,6 +5654,7 @@ Efektywne mechanizmy transferu wiedzy obejmują:
 W strategii Shift-Left, testy automatyczne nie są tworzone po fakcie - są projektowane równolegle z funkcjonalnościami.
 Wymaga to ścisłej współpracy między deweloperami a testerami już na etapie projektowania - najlepiej w formie ATDD.
 
+
 ```java
 // Przykład kodu zaprojektowanego z myślą o testowalności
 public class UserService {
@@ -5522,6 +5710,7 @@ public void shouldRegisterUserSuccessfully() {
     verify(mockRepository).save(any(User.class));
     verify(mockEmailService).sendWelcomeEmail(any(User.class));
 }
+
 ```
 
 ### Wspólne narzędzia i infrastruktura
@@ -5579,6 +5768,7 @@ podstawą do późniejszego tworzenia testów automatycznych.
 Skutecznym podejściem jest wykorzystanie notacji Gherkin (Given-When-Then), która jest czytelna zarówno dla biznesu, jak
 i dla zespołu technicznego:
 
+
 ```gherkin
 Potrzeba biznesowa: Rejestracja Użytkownika
   Jako nowy klient serwisu
@@ -5604,6 +5794,7 @@ Potrzeba biznesowa: Rejestracja Użytkownika
     Oraz Użytkownik zatwierdza proces rejestracji
     Wtedy System informuje o niemożności utworzenia konta
     Oraz System wyświetla komunikat o zajętej nazwie użytkownika
+
 ```
 
 ### Prototypowanie testów
@@ -5611,6 +5802,7 @@ Potrzeba biznesowa: Rejestracja Użytkownika
 Już na etapie analizy wymagań można tworzyć "szkielety" testów automatycznych, nawet jeśli implementacja nie jest
 jeszcze gotowa. Te prototypy testów pozwalają wcześnie wykryć potencjalne problemy z testowalnością i projektowaniem
 interfejsów API.
+
 
 ```java
 // Prototyp testu API - implementacja jeszcze nie istnieje
@@ -5637,6 +5829,7 @@ public void userRegistrationAPITest() {
         .body("username", equalTo("newuser"))
         .body("email", equalTo("newuser@example.com"));
 }
+
 ```
 
 Pozwala to na wdrożenie procesu ATDD - gdzie testy tworzymy przed implementacją kodu produkcyjnego.
@@ -5650,6 +5843,7 @@ elementy można i należy testować.
 
 Dla makiet interfejsu użytkownika można wykorzystać narzędzia jak Selenium czy Selenide do weryfikacji podstawowych
 interakcji i przepływów:
+
 
 ```java
 // Test makiety UI
@@ -5675,6 +5869,7 @@ public void registrationFlowInMockupTest() {
     // Na makiecie przycisk może nie działać, ale możemy sprawdzić jego dostępność
     $(By.id("registerButton")).shouldBe(enabled);
 }
+
 ```
 
 Należy zaznaczyć, że do efektywnego testowania makiet interfejsu użytkownika należy wykorzystać narzędzia takie jak Cypress czy Playwright
@@ -5727,6 +5922,7 @@ TDD to metodyka, w której testy są pisane przed implementacją. Proces składa
 2. Green - implementacja minimalnej ilości kodu, aby test przeszedł
 3. Refactor - przeorganizowanie kodu bez zmiany jego zachowania
 
+
 ```java
 // TDD dla funkcji walidacji adresu email
 @Test
@@ -5776,6 +5972,7 @@ public class EmailValidator {
         return true;
     }
 }
+
 ```
 
 ### Behavior-Driven Development (BDD)
@@ -5786,6 +5983,7 @@ różnymi rolami w projekcie.
 
 Framework Cucumber pozwala na implementację BDD w Javie:
 
+
 ```gherkin
 Feature: Shopping Cart
 
@@ -5795,7 +5993,9 @@ Feature: Shopping Cart
     When I add a product "Smartphone" with price $599.99 to the cart
     Then my shopping cart should contain 1 item
     And the total cost should be $599.99
+
 ```
+
 
 ```java
 // Implementacja kroków BDD
@@ -5834,6 +6034,7 @@ public void theTotalCostShouldBe(double expectedTotal) {
     shoppingCart = shoppingCartService.getCartForUser(user.getId());
     assertEquals(new BigDecimal(expectedTotal), shoppingCart.getTotalCost());
 }
+
 ```
 
 ### Continuous Testing
@@ -5842,6 +6043,7 @@ Continuous Testing to praktyka automatycznego uruchamiania testów przy każdej 
 potoku CI/CD i strategii Shift-Left.
 
 Konfiguracja testów w Jenkins:
+
 
 ```groovy
 pipeline {
@@ -5907,6 +6109,7 @@ pipeline {
         }
     }
 }
+
 ```
 
 ### Feature Toggles
@@ -5914,6 +6117,7 @@ pipeline {
 Feature Toggles (lub Feature Flags) to technika, która umożliwia włączanie i wyłączanie funkcjonalności bez konieczności
 wdrażania nowego kodu. Jest to szczególnie przydatne w kontekście testowania równoległego z wytwarzaniem, ponieważ
 pozwala na testowanie funkcjonalności jeszcze niedostępnych dla użytkowników końcowych.
+
 
 ```java
 public class FeatureToggleService {
@@ -5974,6 +6178,7 @@ public void testNewRegistrationFlow() {
     assertEquals("registration-new", viewName);
     assertTrue((Boolean) model.getAttribute("useNewFlow"));
 }
+
 ```
 
 # 9. Definition of Ready i Definition of Done
